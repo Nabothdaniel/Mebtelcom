@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="./file/welcome.css">
+</head>
+<body>
+  <body style="background-color: rgb(37, 37, 100);">
+    <header class="navbar">
+      <h1>Welcome to Mebtelecom</h1>
+    </header>
+  
+  <main>
+    <section class="welcome-section">
+      <h2 style="color: black;">Good evening, {{ user['username'] }}</h2>
+      <p style="color: black;">Package: <strong>{{ user['package'] }}</strong></p>
+      <p style="color: black;">Account status: <span class="status-verified">✔ {{ user['account_status'] }}</span></p>
+    </section>
+
+    <section class="account-details">
+      <div class="account-card">
+        <h3>UNITED </h3>BANK FOR AFRICA
+        <p>Account Number: <strong>1024006128</strong></p>
+        <p>Account Name: <strong>mebtelecom- {{ user['username'] }}</strong></p>
+        <p class="balance">₦{{ user['balance'] }}</p>
+        <p class="notice">MTN SME IS NOW 259 PER GIG ENJOY!!!</p>
+      </div>
+    </section>
+
+    <section class="actions">
+      <div class="action-card">Transactions</div>
+      <div class="action-card">Data Transactions</div>
+      <div class="action-card">Wallet Summary</div>
+      <div class="action-card" nclick="upgrade('affiliate')">Upgrade to Affiliate ₦10,000</div>
+      <div class="action-card" onclick="upgrade('topuser')">Upgrade to TopUser ₦2,000</div>
+    </section>
+
+    <footer class="footer">
+      <button>Message Us</button>
+      <button>Balance</button>
+      <button>Referral Bonus</button>
+      <button>My Total Referral</button>
+    </footer>
+  </main>
+</body>
+
+<script>
+  // Upgrade function
+  function upgrade(package) {
+    fetch(`/upgrade/${package}`, { method: "GET" })
+      .then((response) => {
+        if (response.ok) {
+          alert("Upgrade successful!");
+          window.location.reload();
+        } else {
+          alert("Insufficient balance for upgrade.");
+        }
+      });
+  }
+</script>
+<script src="./welcome.js"></script>
+</html>

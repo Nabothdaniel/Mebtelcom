@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mebtelecom - Data & Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-image: url(./images/round-collapsible-conference-table.webp);
+            background-color: #0033cc;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .service{
+            background-color: aqua;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 calc(33.333% - 20px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: no-drop;
+        }
+        .service img {
+            background-color: #0033cc;
+            width: 50px;
+            margin-bottom: 10px;
+        }
+        .service h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .cta-buttons a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #0033cc;
+            border-radius: 5px;
+        }
+        .cta-buttons a:hover {
+            background-color: #002299;
+        }
+        .about, .pricing {
+            margin-top: 40px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0033cc;
+            color: #fff;
+        }
+        @media(max-width: 768px) {
+            .services {
+                flex-direction: column;
+            }
+            .service {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome To mebtelecom.com</h1>
+        <p>Here at mebtelecom.com, we offer the most affordable data, airtime, and subscription services.</p>
+        <div class="cta-buttons">
+            <a href="#register">Register</a>
+            <a href="#login">Login</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="services">
+            <div class="service">
+                <i class="fa fa-wifi" style="font-size:24px"></i>
+                <h3>BUY DATA</h3>
+                <p>Start enjoying very low rates on data plans for your internet browsing.</p>
+            </div>
+            <div class="service">
+                <i class="material-icons">&#xe324;</i>
+                <h3>AIRTIME TOPUP</h3>
+                <p>Making online recharges has become very easy and safe on mebtelecom.</p>
+            </div>
+            <div class="service">
+                <i class="fa fa-laptop" style="font-size:36px"></i>
+                <h3>UTILITY BILLS PAYMENT</h3>
+                <p>Conveniently pay your bills and utilities with ease.</p>
+            </div>
+            <div class="service">
+                <i class="fa fa-television" style="font-size:36px"></i>
+                <h3>CABLE SUBSCRIPTION</h3>
+                <p>Instantly activate cable subscriptions with favorable discounts.</p>
+            </div>
+            <div class="service">
+                <i class="material-icons" style="font-size:36px">mail</i>
+                <h3>BULK SMS</h3>
+                <p>Get your SMS in bulk at convenient rates by signing up now.</p>
+            </div>
+        </section>
+
+        <section class="about">
+            <h2>About Mebtelecom</h2>
+            <p>We offer instant recharge of Airtime, Databundle, CableTV (DStv, GOtv & Startimes), Electricity Bill Payment, and more. Our services are reliable and affordable, with 24/7 customer support to assist you whenever needed.</p>
+        </section>
+
+        <section class="pricing">
+            <h2>Affordable Data Plans</h2>
+            <p>Choose from our affordable data plans for MTN, Airtel, Glo, and 9Mobile networks.</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>Contact Info: mastereaglebrothersenterprise@gmail.com | Phone: 08130074015 | Address: Nigeria</p>
+    </footer>
+</body>
+</html>
