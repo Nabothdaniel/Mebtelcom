@@ -1,5 +1,6 @@
 import User from "../model/usermodel.js";
 import { generateToken } from "../utils/token.js";
+import { generateCookie } from "../utils/createCookie.js";
 import jwt from 'jsonwebtoken';
 
 
@@ -36,10 +37,15 @@ const signup = async (req, res) => {
     if (user && (await user.matchPassword(password))) {
       res.status(200).json({
         id: user._id,
+        fullname:user.fullname,
         name: user.name,
         email: user.email,
+        phone:user.phone,
         token: generateToken(user._id),
       });
+
+    generateCookie(res,token)
+
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
     }
