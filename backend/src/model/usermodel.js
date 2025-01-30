@@ -3,6 +3,11 @@ import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
+    fullname: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     username: {
       type: String,
       required: true,
@@ -14,6 +19,11 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       match: [/\S+@\S+\.\S+/, "Please enter a valid email address"], // Email validation
+    },
+    
+    phone: {
+      type: Number,
+      required: true,
     },
     password: {
       type: String,
