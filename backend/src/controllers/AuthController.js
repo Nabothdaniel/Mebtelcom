@@ -1,5 +1,6 @@
 import User from "../model/usermodel.js";
 import { generateToken } from "../utils/token.js";
+import jwt from 'jsonwebtoken';
 
 
 const signup = async (req, res) => {
@@ -48,7 +49,10 @@ const signup = async (req, res) => {
 };
 
 const authenticate = (req, res, next) => {
-  const token = req.header('Authorization')?.split(' ')[1];
+  const authHeader = req.header('Authorization');
+
+  const token = authHeader?.split(' ')[1];
+
   if (!token) return res.status(401).json({ message: 'Access denied' });
 
   try {
