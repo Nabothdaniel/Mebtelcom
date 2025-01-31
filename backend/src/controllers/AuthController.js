@@ -58,7 +58,7 @@ const login = async (req, res) => {
 };
 
 
-export const logoutUser = (req, res) => {
+export const logout = (req, res) => {
   try {
     // Get the token from cookies
     const token = req.cookies?.token;
