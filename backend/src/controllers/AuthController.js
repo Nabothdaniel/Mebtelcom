@@ -43,10 +43,10 @@ const login = async (req, res) => {
       //
       res.status(200).json({
         id: user._id,
-        fullname: user.fullname,
-        username: user.username,
+        fullname: user._fullname,
+        username: user._username,
         email: user.email,
-        phone: user.phone,
+        phone: user._phone,
         token,
       });
     } else {
@@ -57,17 +57,30 @@ const login = async (req, res) => {
   }
 };
 
-const logout = (req, res) => {
+
+export const logoutUser = (req, res) => {
   try {
-    //check if user has an auth token cookie
-    if (!req.cookies.authToken)
-      res.status(400).json({ message: "No active session found" });
-    //clear cookie
+    // Get the token from cookies
+    const token = req.cookies?.token;
+
+    if (!token) {
+      return res.status(400).json({ message: "No active session found" });
+    }
+
+    // Verify the token and extract the user ID
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decoded || !decoded.id) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+
+    // Clear the cookie
     res.clearCookie("authToken", {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Use secure in production
       sameSite: "Strict",
     });
-    res.status(200).json({ message: "User logged out successfully" });
+
+    res.status(200).json({ message: `User ${decoded.id} logged out successfully` });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
