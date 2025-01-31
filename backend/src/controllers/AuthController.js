@@ -38,20 +38,35 @@ const login = async (req, res) => {
       //generate token
       const token = generateToken(user._id);
       //generate cookie before sending the request
-      generateCookie(res,token);
-//
+      generateCookie(res, token);
+      //
       res.status(200).json({
         id: user._id,
         fullname: user.fullname,
-        name: user.name,
+        username: user.username,
         email: user.email,
         phone: user.phone,
-        token
+        token,
       });
-
     } else {
       res.status(401).json({ message: "Invalid email or password" });
     }
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const logout = (req, res) => {
+  try {
+    //check if user has an auth token cookie
+    if (!req.cookies.authToken)
+      res.status(400).json({ message: "No active session found" });
+    //clear cookie
+    res.clearCookie("authToken", {
+      httpOnly: true,
+      sameSite: "Strict",
+    });
+    res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
@@ -73,4 +88,4 @@ const authenticate = (req, res, next) => {
   }
 };
 
-export { signup, login, authenticate };
+export { signup, login, logout, authenticate };
