@@ -32,7 +32,8 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("fullname username email phone password");
+
 
     if (user && (await user.matchPassword(password))) {
       //generate token
@@ -72,20 +73,6 @@ const logout = (req, res) => {
   }
 };
 
-const authenticate = (req, res, next) => {
-  const authHeader = req.header("Authorization");
 
-  const token = authHeader?.split(" ")[1];
 
-  if (!token) return res.status(401).json({ message: "Access denied" });
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    res.status(400).json({ message: "Invalid token" });
-  }
-};
-
-export { signup, login, logout, authenticate };
+export { signup, login, logout };
