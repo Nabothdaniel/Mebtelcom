@@ -3,6 +3,7 @@ import bodyParser from  'body-parser';
 import cookieParser from 'cookie-parser';
 import connectDb from './src/config/db.js';
 import authRoute from './src/routes/Authroute.js';
+import requestLogger from './src/middleware/requestLogger.js';
 
 //set your port
 const PORT = process.env.PORT || 8000;
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended:true}));
 app.disable('x-powered-by');
+app.use(requestLogger);
 
 // connect to mongodb
 connectDb();

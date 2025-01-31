@@ -34,7 +34,6 @@ const login = async (req, res) => {
   try {
     const user = await User.findOne({ email }).select("fullname username email phone password");
 
-
     if (user && (await user.matchPassword(password))) {
       //generate token
       const token = generateToken(user._id);
@@ -43,10 +42,10 @@ const login = async (req, res) => {
       //
       res.status(200).json({
         id: user._id,
-        fullname: user._fullname,
-        username: user._username,
+        fullname: user.fullname,
+        username: user.username,
         email: user.email,
-        phone: user._phone,
+        phone: user.phone,
         token,
       });
     } else {
