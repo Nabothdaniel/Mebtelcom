@@ -58,26 +58,22 @@ const login = async (req, res) => {
   }
 };
 
-
 const logout = (req, res) => {
+  console.log("Cookies received:", req.cookies);
+  console.log("Authorization Header:", req.headers.authorization);
+
   try {
-    // Get the token from cookies
-    const token = req.cookies?.token;
+    const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
     if (!token) {
       return res.status(400).json({ message: "No active session found" });
     }
 
-    // Verify the token and extract the user ID
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (!decoded || !decoded.id) {
-      return res.status(401).json({ message: "Invalid token" });
-    }
 
-    // Clear the cookie
-    res.clearCookie("authToken", {
+    res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Use secure in production
+      secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
     });
 
@@ -88,5 +84,29 @@ const logout = (req, res) => {
 };
 
 
+const profile = async (req, res) => {
+  try {
+    // Get the user ID from the request
+    const userId = req.user.id;
 
-export { signup, login, logout };
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return the user profile
+    res.status(200).json({
+      id: user._id,
+      fullname: user.fullname,
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export { signup, login, logout,profile };

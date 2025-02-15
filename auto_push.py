@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 
 # GitHub repo details
-REPO_PATH = "C:/path/to/your/repo"  # Change this to your repo path
+REPO_PATH = "C:/Daniel/Documents/mebtelecom"  # Change this to your repo path
 COMMIT_MESSAGE = "Automated commit: " + datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 BRANCH = "main"  # Change if using a different branch
 
