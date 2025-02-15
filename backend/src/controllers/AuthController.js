@@ -71,7 +71,7 @@ const logout = (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    res.clearCookie("token", {
+    res.clearCookie("authToken", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
