@@ -108,27 +108,29 @@ const profile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   const { fullname, username, email, phone, password } = req.body;
+  const { id } = req.params; // Get user ID from URL
 
   try {
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findById(id);
 
     if (userExists) {
-      const updatedUser = await User.findOneAndUpdate(
-        { email },
-        { fullname, username, phone, password }, // Update fields
+      const updatedUser = await User.findByIdAndUpdate(
+        id,
+        { fullname, username, email, phone, password }, // Update fields
         { new: true, runValidators: true } // Return updated user
       );
 
       return res.status(200).json({
-        message: 'User profile has been updated successfully',
-        user: updatedUser
+        message: "User profile has been updated successfully",
+        user: updatedUser,
       });
     } else {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
   } catch (err) {
-    return res.status(500).json({ message: 'Something happened', error: err.message });
+    return res.status(500).json({ message: "Something happened", error: err.message });
   }
 };
+
 
 export { signup, login, logout, profile,updateProfile };
