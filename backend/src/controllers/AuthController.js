@@ -1,3 +1,4 @@
+
 import User from "../model/usermodel.js";
 import { generateToken } from "../utils/token.js";
 import { generateCookie } from "../utils/createCookie.js";
@@ -43,9 +44,7 @@ const login = async (req, res) => {
       res.status(200).json({
         id: user._id,
         fullname: user.fullname,
-        username: user.username,
         email: user.email,
-        phone: user.phone,
         token,
       });
     } else {
@@ -75,7 +74,7 @@ const logout = (req, res) => {
       sameSite: "Strict",
     });
 
-    res.status(200).json({ message: `User ${decoded.id} logged out successfully` });
+    res.status(200).json({ message: `User logged out successfully` });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
