@@ -5,7 +5,7 @@ import { generateCookie } from "../utils/createCookie.js";
 import jwt from "jsonwebtoken";
 
 const signup = async (req, res) => {
-  const { fullname,username, email,phone, password } = req.body;
+  const { fullname, username, email, phone, password } = req.body;
 
   try {
     // Check if user exists
@@ -14,11 +14,11 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
 
     // Create new user
-    const user = await User.create({ fullname,username, email,phone, password });
+    const user = await User.create({ fullname, username, email, phone, password });
 
     res.status(201).json({
       id: user._id,
-      username:user.username,
+      username: user.username,
       email: user.email,
       token: generateToken(user._id),
       msg: "user created succesfully",
@@ -106,4 +106,29 @@ const profile = async (req, res) => {
   }
 };
 
-export { signup, login, logout,profile };
+const updateProfile = async (req, res) => {
+  const { fullname, username, email, phone, password } = req.body;
+
+  try {
+    const userExists = await User.findOne({ email });
+
+    if (userExists) {
+      const updatedUser = await User.findOneAndUpdate(
+        { email },
+        { fullname, username, phone, password }, // Update fields
+        { new: true, runValidators: true } // Return updated user
+      );
+
+      return res.status(200).json({
+        message: 'User profile has been updated successfully',
+        user: updatedUser
+      });
+    } else {
+      return res.status(404).json({ message: 'User not found' });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: 'Something happened', error: err.message });
+  }
+};
+
+export { signup, login, logout, profile,updateProfile };
